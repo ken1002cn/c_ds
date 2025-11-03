@@ -32,3 +32,87 @@ SListNode* createNode(int data){
 	node->next = NULL;
 	return node;
 }
+void pushBack(SListNode *p,int element){
+	if(p==NULL){
+		return;
+	}
+	SListNode* newNode = createNode(element);
+	SListNode* cur = p;
+	while(cur->next){
+		cur = cur->next;
+	}
+	cur->next = newNode;
+}
+int getLen(SListNode* p){
+	int len = 0;
+	while(p->next){
+		p = p->next;
+		len++;
+	}
+	return len;
+}
+int getElem(SListNode* p,int index){
+	SListNode* cur = p->next;
+	int j = 1;
+	while(cur && j<=index){
+		if(j == index){
+			return cur->data;
+		}
+		j++;
+		cur = cur->next;
+	}
+	 return -1;
+}
+
+int LocatElem(SListNode* p,int element){
+	SListNode* cur = p->next;
+	while(cur){
+		if(cur->data == element){
+			return cur->data;
+		}
+		cur = cur->next;
+	}
+	return -1;
+}
+
+int ListInsert(SListNode* p,int index,int element){
+	SListNode* cur = p;
+	int i = 0;
+	while(cur && i<index){
+		if(i == index-1){ //找到要插入位置的前驱了
+			SListNode* newNode = createNode(element);
+			if(cur->next == NULL){
+				//直接插入
+				cur->next = newNode;
+				return 1;
+			}else{
+				newNode->next = cur->next;
+				cur->next = newNode;
+				return 1;
+			}
+		}
+		cur = cur->next;
+		i++;
+	}
+	return -1;
+}
+int deleteNode(SListNode* p,int index){
+	SListNode* cur = p;
+	int i = 0;
+	while(cur && i<index){
+		if(i == index-1){ //找到要删除位置的前驱了
+			if(cur->next == NULL){
+				//前驱后面没东西了 说明越界了 跳出循环
+				break;
+			}
+				SListNode* q = cur->next;
+				cur->next = q->next;
+				free(q);
+				return 1;
+		}
+		cur = cur->next;
+		i++;
+	}
+	return -1;
+}
+
