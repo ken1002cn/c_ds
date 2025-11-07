@@ -1,5 +1,5 @@
 #include<stdio.h>
-#define ture 1
+#define true 1
 #define false -1
 #define MAXSIZE 20
 typedef int flag;
@@ -23,7 +23,7 @@ flag push(SqStack* p,int element){
 		return false;
 	}
 	p->data[++p->top] = element;
-	return ture;
+	return true;
 }
 flag pop(SqStack* p,int* e){
 	if(p->top == -1){
@@ -32,6 +32,14 @@ flag pop(SqStack* p,int* e){
 	}
 	*e = p->data[p->top];
 	p->top--;
-	return ture;
+	return true;
 }
 
+flag getTop(SqStack* q,int* e){
+	if(q->top == -1){
+			printf("栈空");
+			return false;
+	}
+	*e = q->data[q->top];
+	return true;
+}
