@@ -2,22 +2,23 @@
 #define ture 1
 #define false -1
 #define MAXSIZE 20
+typedef char ElementType;
 typedef int flag;
 //顺序栈
 typedef struct SqStack{
-	int data[MAXSIZE];
+	ElementType data[MAXSIZE];
 	int top;//栈顶指针
 }SqStack;
 
-SqStack InitStack(SqStack* p){
+SqStack initStack(SqStack* p){
 	p->top = -1;
 }
 
-flag StackEmpty(SqStack* p){
+flag stackEmpty(SqStack* p){
 	return p->top == -1;
 }
 
-flag push(SqStack* p,int element){
+flag push(SqStack* p,ElementType element){
 	if(p->top == MAXSIZE-1){
 		printf("栈满");
 		return false;
@@ -25,7 +26,7 @@ flag push(SqStack* p,int element){
 	p->data[++p->top] = element;
 	return ture;
 }
-flag pop(SqStack* p,int* e){
+flag pop(SqStack* p,ElementType* e){
 	if(p->top == -1){
 		printf("栈空");
 		return false;
@@ -33,5 +34,41 @@ flag pop(SqStack* p,int* e){
 	*e = p->data[p->top];
 	p->top--;
 	return ture;
+}
+
+//栈在括号匹配上的应用
+int bracketCheck(char str[], int length) {
+	SqStack s;
+	initStack(&s);
+	
+	for (int i = 0; i < length; i++) {
+		char current = str[i];
+		
+		// 左括号入栈
+		if (current == '(' || current == '[' || current == '{') {
+			push(&s, current);
+		}
+		// 右括号处理
+		else if (current == ')' || current == ']' || current == '}') {
+			
+			if (stackEmpty(&s)) {
+				return 0; // 栈空，匹配失败
+			}
+			
+			char top;
+			pop(&s, &top);
+			
+			// 检查是否匹配
+			if ((current == ')' && top != '(') ||
+				(current == ']' && top != '[') ||
+				(current == '}' && top != '{')) {
+				return 0;
+			}
+		}
+		// 其他字符忽略
+	}
+	
+	// 如果最后栈空，则匹配成功
+	return stackEmpty(&s);
 }
 
