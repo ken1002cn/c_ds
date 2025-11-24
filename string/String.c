@@ -26,3 +26,22 @@ int Index(MyString main,MyString target){
 	}
 	return -1;//没找到
 }
+//KMP算法 S 主串 T模式串 next数组
+int kmpIndex(MyString S,MyString T,int next[]){
+	int i = 1, j = 1;
+	while(i<=S.lenght && j<=T.lenght){
+		if(j==0 || S.ch[i] ==T.ch[j]){
+			//继续比较
+			++i;
+			++j;
+		}
+		else{
+			//模式串移动
+			j = next[j];
+		}
+	}
+	if(j>T.lenght){
+		return i - T.lenght;
+	}
+	return 0;
+}
