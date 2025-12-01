@@ -42,3 +42,4 @@ void CreateInThread(ThreadNode *T){
 		pre->rtag =1; //中序遍历的结尾必然没有右孩子 也没有后继
 	}
 }
+
