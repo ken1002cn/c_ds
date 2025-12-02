@@ -1,5 +1,5 @@
 #include<stdio.h>
-#define ture 1
+#define true 1
 #define false -1
 #define MAXSIZE 20
 typedef char ElementType;
@@ -10,8 +10,10 @@ typedef struct SqStack{
 	int top;//栈顶指针
 }SqStack;
 
-SqStack initStack(SqStack* p){
-	p->top = -1;
+SqStack initStack(){
+	SqStack s;
+	s.top = -1;
+	return s;
 }
 
 flag stackEmpty(SqStack* p){
@@ -24,7 +26,7 @@ flag push(SqStack* p,ElementType element){
 		return false;
 	}
 	p->data[++p->top] = element;
-	return ture;
+	return true;
 }
 flag pop(SqStack* p,ElementType* e){
 	if(p->top == -1){
@@ -33,13 +35,13 @@ flag pop(SqStack* p,ElementType* e){
 	}
 	*e = p->data[p->top];
 	p->top--;
-	return ture;
+	return true;
 }
 
 //栈在括号匹配上的应用
 int bracketCheck(char str[], int length) {
-	SqStack s;
-	initStack(&s);
+
+	SqStack s = initStack();
 	
 	for (int i = 0; i < length; i++) {
 		char current = str[i];
